@@ -1,0 +1,573 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789012",
+		"name": "API Películas - Examen Parcial 2",
+		"description": "Colección de Postman para la API de gestión de películas, actores y directores",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Películas",
+			"item": [
+				{
+					"name": "Obtener todas las películas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/movies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								""
+							]
+						},
+						"description": "Obtiene la lista de todas las películas"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener película por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/movies/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"1",
+								""
+							]
+						},
+						"description": "Obtiene una película específica por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nueva película",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"El Padrino\",\n    \"year\": 1972,\n    \"rating\": 9.2,\n    \"duration\": 175,\n    \"genre\": \"Drama\",\n    \"description\": \"La historia de la familia Corleone, una de las cinco familias de la mafia de Nueva York.\",\n    \"poster\": \"\",\n    \"banner\": \"\",\n    \"directors\": [],\n    \"actors\": []\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/movies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								""
+							]
+						},
+						"description": "Crea una nueva película"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar película",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"El Padrino (Actualizado)\",\n    \"year\": 1972,\n    \"rating\": 9.5,\n    \"duration\": 175,\n    \"genre\": \"Drama\",\n    \"description\": \"La historia de la familia Corleone, una de las cinco familias de la mafia de Nueva York.\",\n    \"poster\": \"\",\n    \"banner\": \"\",\n    \"directors\": [],\n    \"actors\": []\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/movies/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"1",
+								""
+							]
+						},
+						"description": "Actualiza una película existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar parcialmente película",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": 9.8,\n    \"description\": \"Descripción actualizada de la película.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/movies/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"1",
+								""
+							]
+						},
+						"description": "Actualiza parcialmente una película"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar película",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/movies/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"1",
+								""
+							]
+						},
+						"description": "Elimina una película por su ID"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gestionar películas"
+		},
+		{
+			"name": "Actores",
+			"item": [
+				{
+					"name": "Obtener todos los actores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/actors/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"actors",
+								""
+							]
+						},
+						"description": "Obtiene la lista de todos los actores"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener actor por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/actors/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"actors",
+								"1",
+								""
+							]
+						},
+						"description": "Obtiene un actor específico por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo actor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Marlon Brando\",\n    \"nationality\": \"Estadounidense\",\n    \"photo\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/actors/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"actors",
+								""
+							]
+						},
+						"description": "Crea un nuevo actor"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar actor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Marlon Brando\",\n    \"nationality\": \"Estadounidense\",\n    \"photo\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/actors/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"actors",
+								"1",
+								""
+							]
+						},
+						"description": "Actualiza un actor existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar parcialmente actor",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nationality\": \"Estadounidense (Nueva York)\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/actors/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"actors",
+								"1",
+								""
+							]
+						},
+						"description": "Actualiza parcialmente un actor"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar actor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/actors/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"actors",
+								"1",
+								""
+							]
+						},
+						"description": "Elimina un actor por su ID"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gestionar actores"
+		},
+		{
+			"name": "Directores",
+			"item": [
+				{
+					"name": "Obtener todos los directores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/directors/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"directors",
+								""
+							]
+						},
+						"description": "Obtiene la lista de todos los directores"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener director por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/directors/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"directors",
+								"1",
+								""
+							]
+						},
+						"description": "Obtiene un director específico por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo director",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Francis Ford Coppola\",\n    \"nationality\": \"Estadounidense\",\n    \"photo\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/directors/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"directors",
+								""
+							]
+						},
+						"description": "Crea un nuevo director"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar director",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Francis Ford Coppola\",\n    \"nationality\": \"Estadounidense\",\n    \"photo\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/directors/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"directors",
+								"1",
+								""
+							]
+						},
+						"description": "Actualiza un director existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar parcialmente director",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nationality\": \"Estadounidense (California)\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/directors/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"directors",
+								"1",
+								""
+							]
+						},
+						"description": "Actualiza parcialmente un director"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar director",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/directors/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"directors",
+								"1",
+								""
+							]
+						},
+						"description": "Elimina un director por su ID"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gestionar directores"
+		},
+		{
+			"name": "Ejemplos con Imágenes",
+			"item": [
+				{
+					"name": "Crear película con imagen base64",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Pulp Fiction\",\n    \"year\": 1994,\n    \"rating\": 8.9,\n    \"duration\": 154,\n    \"genre\": \"Crimen\",\n    \"description\": \"Historias entrelazadas de criminales en Los Ángeles.\",\n    \"poster\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwA/8A\",\n    \"banner\": \"\",\n    \"directors\": [],\n    \"actors\": []\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/movies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								""
+							]
+						},
+						"description": "Ejemplo de creación de película con imagen en formato base64"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear actor con foto base64",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Travolta\",\n    \"nationality\": \"Estadounidense\",\n    \"photo\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwA/8A\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/actors/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"actors",
+								""
+							]
+						},
+						"description": "Ejemplo de creación de actor con foto en formato base64"
+					},
+					"response": []
+				}
+			],
+			"description": "Ejemplos de uso con imágenes en formato base64"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string",
+			"description": "URL base del servidor Django"
+		}
+	]
+} 
