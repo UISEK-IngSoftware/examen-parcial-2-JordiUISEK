@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+{% block styles %}
+<link href="{% static 'custom.css' %}" rel="stylesheet">
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block banner %}
+<div class="col-md-12 bg-primary p-4 text-center banner" style="background-image: url({% static 'banner.jpg' %});">
+    <h1>Gestión de Directores</h1>
+</div>
+{% endblock banner %}
+
+{% block buttons_auth %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <div class="col-12 float-left text-left">
+            <ul class="navbar-nav w-100 d-flex justify-content-between">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'movies:index' %}"><i class="fa-solid fa-arrow-left text-white" title="Volver"></i> Volver</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket text-white" title="Cerrar sesión"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock buttons_auth %}
+
+{% block content %}
+<div class="form-container" style="margin-top: -8px;">
+    <div class="form-card director-form">
+        <div class="form-header">
+            <div class="form-icon">
+                <i class="fa-solid fa-video"></i>
+            </div>
+            <h2 class="form-title">{{ title }}</h2>
+        </div>
+        
+        {% if form.errors %}
+        <div class="error-message">
+            <i class="fa-solid fa-exclamation-triangle"></i>
+            Error al guardar el director.
+        </div>
+        {% endif %}
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}" class="required">
+                    <i class="fa-solid fa-user-tie"></i> Nombre del Director
+                </label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="error-message">{{ form.name.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.nationality.id_for_label }}">
+                    <i class="fa-solid fa-flag"></i> Nacionalidad
+                </label>
+                {{ form.nationality }}
+                {% if form.nationality.errors %}
+                    <div class="error-message">{{ form.nationality.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.photo.id_for_label }}">
+                    <i class="fa-solid fa-camera"></i> Foto del Director
+                </label>
+                {{ form.photo }}
+                {% if form.photo.errors %}
+                    <div class="error-message">{{ form.photo.errors.0 }}</div>
+                {% endif %}
+                <small class="form-text text-muted">
+                    <i class="fa-solid fa-info-circle"></i> 
+                    Formatos recomendados: JPG, PNG. Tamaño máximo: 5MB
+                </small>
+            </div>
+            
+            <button type="submit" class="btn-form">
+                <i class="fa-solid fa-save"></i> Guardar
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

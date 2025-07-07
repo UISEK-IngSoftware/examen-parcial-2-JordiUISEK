@@ -1,0 +1,23 @@
+<html>
+    <head>
+        {% load static %}
+        {% block meta %}{% endblock meta %}
+        <title>{% block title %}{% endblock title %}</title>
+        <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+        {% block styles %}{% endblock styles %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        {% block scripts %}{% endblock scripts %}
+    </head>
+    <body>
+        <div class="container">
+            {% block banner %}{% endblock banner %}
+            {% if user.is_authenticated %}
+                {% block buttons_auth %}{% endblock buttons_auth %}
+            {% else %}
+                {% block buttons_noauth %}{% endblock buttons_noauth %}
+            {% endif %}
+            {% block content %}{% endblock content %}
+        </div>
+    </body>
+</html>

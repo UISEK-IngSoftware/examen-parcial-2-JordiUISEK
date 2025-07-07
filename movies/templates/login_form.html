@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Ingreso al sistema{% endblock title %}
+{% block styles %}
+<link href="{% static 'custom.css' %}" rel="stylesheet">
+<link href="{% static 'login.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const errorMessage = document.getElementById('errorMessage');
+        if (errorMessage) {
+            setTimeout(function() {
+                errorMessage.style.transition = 'opacity 0.5s ease-out';
+                errorMessage.style.opacity = '0';
+                setTimeout(function() {
+                    errorMessage.style.display = 'none';
+                }, 500);
+            }, 2000);
+        }
+    });
+    </script>
+{% endblock scripts %}
+
+{% block banner %}
+<div class="col-md-12 bg-primary p-4 text-center banner" style="background-image: url({% static 'banner.jpg' %});">
+</div>
+{% endblock banner %}
+
+{% block buttons_noauth %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <div class="col-6 float-left text-left">
+            <a><i class="fa-solid fa-right-to-bracket text-success"></i> Ingreso al sistema</a>
+        </div>
+        <div class="col-6 float-right text-right">
+            <ul class="navbar-nav w-100 d-flex justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'movies:index' %}"><i class="fa-solid fa-arrow-left text-white" title="Volver"></i> Volver</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock buttons_noauth %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-icon">
+                <i class="fa-solid fa-film"></i>
+            </div>
+            <h2 class="login-title">Ingreso al sistema</h2>
+        </div>
+        
+        {% if form.errors %}
+        <div class="error-message" id="errorMessage">
+            <i class="fa-solid fa-exclamation-triangle"></i>   Error en el Usuario o contraseña.
+        </div>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">
+                    <i class="fa-solid fa-user"></i> Usuario
+                </label>
+                <div class="input-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Ingresa tu usuario" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">
+                    <i class="fa-solid fa-lock"></i> Contraseña
+                </label>
+                <div class="input-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" required>
+            </div>
+            
+            <button type="submit" class="btn-login">
+                <i class="fa-solid fa-sign-in-alt"></i> Acceder
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ title | capfirst }}{% endblock title %}
+{% block styles %}
+<link href="{% static 'custom.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block banner %}
+<div class="col-md-12 bg-primary p-4 text-center banner" style="background-image: url({% static 'banner.jpg' %});">
+    {% if subtitle %}<h1>{{ subtitle | capfirst }}</h1>{% endif %}
+</div>
+{% endblock banner %}
+
+{% block buttons_auth %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <div class="col-12 float-left text-left">
+            <ul class="navbar-nav w-100 d-flex justify-content-between">
+                <li class="nav-item" style="margin-top: 8px;">
+                    <a href="{% url "movies:movies" %}"><i class="fa-solid fa-film text-success"></i> Peliculas</a> | <a href="{% url "movies:actors" %}"><i class="fa-solid fa-user text-info"></i> Actores</a> | <a href="{% url "movies:directors" %}"><i class="fa-solid fa-video text-warning"></i> Directores</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-plus-circle text-success"></i> Añadir
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'movies:add_movie' %}"><i class="fa-solid fa-film text-success"></i> Película</a></li>
+                        <li><a class="dropdown-item" href="{% url 'movies:add_actor' %}"><i class="fa-solid fa-user text-info"></i> Actor</a></li>
+                        <li><a class="dropdown-item" href="{% url 'movies:add_director' %}"><i class="fa-solid fa-video text-warning"></i> Director</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket text-white" title="Cerrar sesión"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock buttons_auth %}
+
+{% block buttons_noauth %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <div class="col-12 float-left text-left">
+            <ul class="navbar-nav w-100 d-flex justify-content-between">
+                <li class="nav-item" style="margin-top: 8px;padding-bottom: 8px;">
+                    <a href="{% url "movies:movies" %}"><i class="fa-solid fa-film text-success"></i> Peliculas</a> | <a href="{% url "movies:actors" %}"><i class="fa-solid fa-user text-info"></i> Actores</a> | <a href="{% url "movies:directors" %}"><i class="fa-solid fa-video text-warning"></i> Directores</a>
+                </li>
+                <li class="nav-item" style="margin-top: 5px;">
+                    <a class="nav-link" href="{% url 'movies:login' %}"><i class="fa-solid fa-right-to-bracket text-white" title="Login"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock buttons_noauth %}
+
+{% block content %}
+<div class="row">
+    <div class="mt-2 col-md-12">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="title-section p-2"><a href="{% url 'movies:movies' %}">Películas</a></h3>
+            </div>
+            {% for movie in movies %}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-3">
+                <div class="card card-custom bg-white border-white border-0">
+                    <div class="card-custom-img" style="background-image: url({{ movie.poster.url }});background-color: #e3ecf8 !important;"></div>
+                    <div class="card-body" style="overflow-y: auto">
+                        <h4 class="card-title">{{ movie.title }} ({{ movie.year }})</h4>
+                        <p class="card-genre">{{ movie.genre }}</p>
+                        <p class="card-text">{{ movie.description|truncatechars:90 }}</p>
+                    </div>
+                    <div class="card-footer text-center" style="background: inherit; border-color: inherit;">
+                        <a href="movie/{{movie.id}}" class="btn btn-primary"><i class="fa-solid fa-eye text-white" title="Ver película"></i></a>
+                        {% if user.is_authenticated %}
+                            <a href="movie/edit/{{movie.id}}" class="btn btn-success"><i class="fa-solid fa-pen-to-square text-white" title="Editar película"></i></a>
+                            <a href="movie/delete/{{movie.id}}" class="btn btn-danger"><i class="fa-solid fa-trash text-white" title="Eliminar película"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-2 col-md-12">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="title-section p-2"><a href="{% url 'movies:actors' %}">Actores</a></h3>
+            </div>
+            {% for actor in actors %}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-3">
+                <div class="card card-custom bg-white border-white border-0 custom-height">
+                    <div class="card-custom-img" style="background-image: url({{ actor.photo.url }});background-color: #e3ecf8 !important;"></div>
+                    <div class="card-body" style="overflow-y: auto">
+                        <h4 class="card-title">{{ actor.name }}</h4>
+                        <p class="card-genre">{{ actor.nationality }}</p>
+                    </div>
+                    <div class="card-footer text-center" style="background: inherit; border-color: inherit;">
+                        <a href="actor/{{ actor.id }}" class="btn btn-primary"><i class="fa-solid fa-eye text-white" title="Ver actor"></i></a>
+                        {% if user.is_authenticated %}
+                            <a href="actor/edit/{{actor.id}}" class="btn btn-success"><i class="fa-solid fa-pen-to-square text-white" title="Editar actor"></i></a>
+                            <a href="actor/delete/{{actor.id}}" class="btn btn-danger"><i class="fa-solid fa-trash text-white" title="Eliminar actor"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-2 col-md-12">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="title-section p-2"><a href="{% url 'movies:directors' %}">Directores</a></h3>
+            </div>
+            {% for director in directors %}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-3">
+                <div class="card card-custom bg-white border-white border-0 custom-height">
+                    <div class="card-custom-img" style="background-image: url({{ director.photo.url }});background-color: #e3ecf8 !important;"></div>
+                    <div class="card-body" style="overflow-y: auto">
+                        <h4 class="card-title">{{ director.name }}</h4>
+                        <p class="card-genre">{{ director.nationality }}</p>
+                    </div>
+                    <div class="card-footer text-center" style="background: inherit; border-color: inherit;">
+                        <a href="director/{{ director.id }}" class="btn btn-primary"><i class="fa-solid fa-eye text-white" title="Ver director"></i></a>
+                        {% if user.is_authenticated %}
+                            <a href="director/edit/{{director.id}}" class="btn btn-success"><i class="fa-solid fa-pen-to-square text-white" title="Editar director"></i></a>
+                            <a href="director/delete/{{director.id}}" class="btn btn-danger"><i class="fa-solid fa-trash text-white" title="Eliminar director"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

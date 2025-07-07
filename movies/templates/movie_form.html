@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+{% block styles %}
+<link href="{% static 'custom.css' %}" rel="stylesheet">
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block banner %}
+<div class="col-md-12 bg-primary p-4 text-center banner" style="background-image: url({% static 'banner.jpg' %});">
+</div>
+{% endblock banner %}
+
+{% block buttons_auth %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <div class="col-12 float-left text-left">
+            <ul class="navbar-nav w-100 d-flex justify-content-between">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'movies:index' %}"><i class="fa-solid fa-arrow-left text-white" title="Volver"></i> Volver</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket text-white" title="Cerrar sesión"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock buttons_auth %}
+
+{% block content %}
+<div class="form-container" style="margin-top: -8px;">
+    <div class="form-card movie-form">
+        <div class="form-header">
+            <div class="form-icon">
+                <i class="fa-solid fa-film"></i>
+            </div>
+            <h2 class="form-title">{{ title }}</h2>
+        </div>
+        
+        {% if form.errors %}
+        <div class="error-message">
+            <i class="fa-solid fa-exclamation-triangle"></i>
+            Error al guardar la película.
+        </div>
+        {% endif %}
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}" class="required">
+                    <i class="fa-solid fa-tag"></i> Título
+                </label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="error-message">{{ form.title.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.genre.id_for_label }}" class="required">
+                    <i class="fa-solid fa-theater-masks"></i> Género
+                </label>
+                {{ form.genre }}
+                {% if form.genre.errors %}
+                    <div class="error-message">{{ form.genre.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.year.id_for_label }}" class="required">
+                            <i class="fa-solid fa-calendar"></i> Año
+                        </label>
+                        {{ form.year }}
+                        {% if form.year.errors %}
+                            <div class="error-message">{{ form.year.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.duration.id_for_label }}">
+                            <i class="fa-solid fa-clock"></i> Duración (minutos)
+                        </label>
+                        {{ form.duration }}
+                        {% if form.duration.errors %}
+                            <div class="error-message">{{ form.duration.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}" class="required">
+                    <i class="fa-solid fa-align-left"></i> Sinopsis
+                </label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="error-message">{{ form.description.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.poster.id_for_label }}">
+                            <i class="fa-solid fa-image"></i> Póster
+                        </label>
+                        {{ form.poster }}
+                        {% if form.poster.errors %}
+                            <div class="error-message">{{ form.poster.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.banner.id_for_label }}">
+                            <i class="fa-solid fa-image"></i> Banner
+                        </label>
+                        {{ form.banner }}
+                        {% if form.banner.errors %}
+                            <div class="error-message">{{ form.banner.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.directors.id_for_label }}">
+                    <i class="fa-solid fa-video"></i> Directores
+                </label>
+                {{ form.directors }}
+                {% if form.directors.errors %}
+                    <div class="error-message">{{ form.directors.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.actors.id_for_label }}">
+                    <i class="fa-solid fa-user"></i> Actores
+                </label>
+                {{ form.actors }}
+                {% if form.actors.errors %}
+                    <div class="error-message">{{ form.actors.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn-form">
+                <i class="fa-solid fa-save"></i> Guardar
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

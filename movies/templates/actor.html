@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ title | capfirst }}{% endblock title %}
+{% block styles %}
+<link href="{% static 'custom.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block banner %}
+<div class="col-md-12 bg-primary p-4 text-center d-flex align-items-center justify-content-center banner-movie position-relative" style="background-image: linear-gradient(to right, rgba(24, 24, 24,0.9), rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.1) 80%, rgba(24, 24, 24,0.9)), url({{ actor.photo.url|default:'/static/banner.jpg' }});">
+    <div class="shadow-div position-absolute w-100 h-100"></div>
+    {% if subtitle %}<h1 class="m-0">{{ subtitle | capfirst }}</h1>{% endif %}
+</div>
+{% endblock banner %}
+
+{% block buttons_auth %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <div class="col-12 float-left text-left">
+            <ul class="navbar-nav w-100 d-flex justify-content-between">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'movies:index' %}"><i class="fa-solid fa-arrow-left text-white" title="Volver"></i> Volver</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'movies:edit_actor' actor.id %}"><i class="fa-solid fa-pen-to-square text-success" title="Editar Actor"></i> Editar Actor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket text-white" title="Cerrar sesión"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock buttons_auth %}
+
+{% block buttons_noauth %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <div class="col-12 float-left text-left">
+            <ul class="navbar-nav w-100 d-flex justify-content-between">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'movies:actors' %}"><i class="fa-solid fa-user text-info" title="Actores"></i> Actores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'movies:login' %}"><i class="fa-solid fa-right-to-bracket text-white" title="Login"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock buttons_noauth %}
+
+{% block content %}
+<div class="row">
+    <div class="mt-2 mb-2 col-md-12">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="poster-img" style="background-image: url({{ actor.photo.url }});min-height: 400px;"></div>
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="border-0 mt-3 mb-1 p-3 text-justify">
+                            <h3><strong>Nombre:</strong> {{ actor.name }}</h3>
+                            <p><strong>Nacionalidad:</strong> {{ actor.nationality }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2 mb-4 col-md-12">
+        <h3 class="mb-2">Películas</h3>
+        <div class="row justify-content-left">
+            {% for movie in movies %}
+            <div class="col-4 col-md-2 text-center mb-3">
+                <div class="actor-photo-container">
+                    <a href="{% url 'movies:movie' movie.id %}">
+                        <img class="rounded-circle actor-photo" src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                    </a>
+                </div>
+                <h6 class="mt-2">{{ movie.title }}</h6>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
