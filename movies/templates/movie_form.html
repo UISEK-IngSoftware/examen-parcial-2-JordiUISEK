@@ -69,7 +69,7 @@
             </div>
             
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="{{ form.year.id_for_label }}" class="required">
                             <i class="fa-solid fa-calendar"></i> Año
@@ -80,7 +80,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="{{ form.duration.id_for_label }}">
                             <i class="fa-solid fa-clock"></i> Duración (minutos)
@@ -88,6 +88,17 @@
                         {{ form.duration }}
                         {% if form.duration.errors %}
                             <div class="error-message">{{ form.duration.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.rating.id_for_label }}">
+                            <i class="fa-solid fa-star"></i> Calificación
+                        </label>
+                        {{ form.rating }}
+                        {% if form.rating.errors %}
+                            <div class="error-message">{{ form.rating.errors.0 }}</div>
                         {% endif %}
                     </div>
                 </div>
